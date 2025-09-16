@@ -55,8 +55,8 @@ int main(int argc, char *argv[]) {
     printGrid(N,forest);
 
     // Ask user how many bamboo types does mochi want
+    int choice;
     while (1) {
-        int choice;
         printf("\nHow many bamboo types does Mochi want to eat, 1 or 2?");
         scanf("%d",&choice);
 
@@ -67,22 +67,42 @@ int main(int argc, char *argv[]) {
         }
     }
     
-    while (1) {
-        int bambooType1;
-        int bambooType2;
-        printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
-        scanf("%d",&bambooType1);
+    int bambooType1;
+    int bambooType2;
+    switch (choice) {
+        case 1:
+            while (1) {
+            printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+            scanf("%d",&bambooType1);
 
-        printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
-        scanf("%d",&bambooType2);
-
-        if (bambooType1 >= 0 && bambooType1 <= 9 && bambooType2 >= 0 && bambooType2 <= 9) {
-            printf("Within the range.\n");
+            if (bambooType1 >= 0 && bambooType1 <= 9) {
+                printf("Within the range.\n");
+                break;
+            } else {
+                printf("Has to be within 0-9!\n");
+            }
+            }
             break;
-        } else {
-            printf("Has to be within 0-9!\n");
-        }
-    }
-    
+
+        case 2:
+            while (1) {
+            printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+            scanf("%d",&bambooType1);
+
+            printf("\nWhich bamboo type (2) does Mochi want to eat? (0-9): ");
+            scanf("%d",&bambooType2);
+
+            if (bambooType1 >= 0 && bambooType1 <= 9 && bambooType2 >= 0 && bambooType2 <= 9) {
+                printf("Within the range.\n");
+                break;
+            } else {
+                printf("Has to be within 0-9!\n");
+            }
+            }
+            break;
+
+        default:
+            break;
+
     return 0;
 }
