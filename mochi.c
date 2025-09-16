@@ -37,9 +37,11 @@ void printGrid(int N, int forest[N][N]) {
 // -------------- Main ----------------------
 
 int main(int argc, char *argv[]) {
+    // check CLA
     if (argc != 2) {
-        printf("Please enter size of Forest Grid (N)");
-        return 0;
+        fprintf(stderr, "Error: Please provide the size of the forest grid (N).\n");
+        fprintf(stderr, "Usage: %s <N>\n", argv[0]);
+        return 1;
     }
 
     int N = atoi(argv[1]);
@@ -47,8 +49,7 @@ int main(int argc, char *argv[]) {
 
     initGrid(N,forest);
 
-    printf("<======= Mochi the Panda =======>\n");
-
+    printf("<============================== Mochi the Panda ==============================>\n");
     printf("Generated Forest Grid:\n");
     printGrid(N,forest);
 
