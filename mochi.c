@@ -49,9 +49,23 @@ int main(int argc, char *argv[]) {
 
     initGrid(N,forest);
 
-    printf("<============================== Mochi the Panda ==============================>\n");
-    printf("Generated Forest Grid:\n");
+    printf("<==================== Mochi the Panda ====================>\n");
+    printf("\nMochi is hungry....\n");
+    printf("\nForest Grid:\n");
     printGrid(N,forest);
 
+    while (1) {
+        int bambooType;
+        printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
+        scanf("%d",&bambooType);
+
+        if (bambooType >= 0 && bambooType <= 9) {
+            printf("Within the range.\n");
+            break;
+        } else {
+            printf("Has to be within 0-9!\n");
+        }
+    }
+    
     return 0;
 }
