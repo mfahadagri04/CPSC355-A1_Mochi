@@ -54,12 +54,29 @@ int main(int argc, char *argv[]) {
     printf("\nForest Grid:\n");
     printGrid(N,forest);
 
+    // Ask user how many bamboo types does mochi want
     while (1) {
-        int bambooType;
-        printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
-        scanf("%d",&bambooType);
+        int choice;
+        printf("\nHow many bamboo types does Mochi want to eat, 1 or 2?");
+        scanf("%d",&choice);
 
-        if (bambooType >= 0 && bambooType <= 9) {
+        if (choice == 1 || choice == 2) {
+            break;
+        } else {
+            printf("\nPlease enter either 1 or 2\n");
+        }
+    }
+    
+    while (1) {
+        int bambooType1;
+        int bambooType2;
+        printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+        scanf("%d",&bambooType1);
+
+        printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
+        scanf("%d",&bambooType2);
+
+        if (bambooType1 >= 0 && bambooType1 <= 9 && bambooType2 >= 0 && bambooType2 <= 9) {
             printf("Within the range.\n");
             break;
         } else {
