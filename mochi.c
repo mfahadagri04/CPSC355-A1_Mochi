@@ -44,6 +44,11 @@ void searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
     // Implementation goes here
 }
 
+// Calculate and print the percentage of the grid that has been eaten
+void calculatePercentageEaten(int N, int totalCellsEaten) {
+    return (totalCellsEaten / (N * N)) * 100.0;
+}
+
 // -------------- Main ----------------------
 
 int main(int argc, char *argv[]) {
