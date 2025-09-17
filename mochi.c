@@ -34,6 +34,16 @@ void printGrid(int N, int forest[N][N]) {
     }
 }
 
+// Function to search for a single bamboo type in the grid
+void searchBamboo1(int N, int forest[N][N], int bambooType) {
+    // Implementation goes here
+}
+
+// Function to search for two bamboo types in the grid
+void searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
+    // Implementation goes here
+}
+
 // -------------- Main ----------------------
 
 int main(int argc, char *argv[]) {
@@ -67,6 +77,7 @@ int main(int argc, char *argv[]) {
         }
     }
     
+    // Switch case for 1 or 2 bamboo types
     int bambooType1;
     int bambooType2;
     switch (choice) {
