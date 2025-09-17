@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     // Ask user how many bamboo types does mochi want
     int choice;
     while (1) {
-        printf("\nHow many bamboo types does Mochi want to eat, 1 or 2?");
+        printf("\nHow many bamboo types does Mochi want to eat, 1 or 2? ");
         scanf("%d",&choice);
 
         if (choice == 1 || choice == 2) {
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     switch (choice) {
         case 1:
             while (1) {
-            printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+            printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
             scanf("%d",&bambooType1);
 
             if (bambooType1 >= 0 && bambooType1 <= 9) {
@@ -86,20 +86,30 @@ int main(int argc, char *argv[]) {
 
         case 2:
             while (1) {
-            printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
-            scanf("%d",&bambooType1);
+                printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+                scanf("%d", &bambooType1);
 
-            printf("\nWhich bamboo type (2) does Mochi want to eat? (0-9): ");
-            scanf("%d",&bambooType2);
+                if (bambooType1 < 0 || bambooType1 > 9) {
+                    printf("First bamboo type has to be within 0-9!\n");
+                    continue; 
+                }
 
-            if (bambooType1 >= 0 && bambooType1 <= 9 && bambooType2 >= 0 && bambooType2 <= 9) {
-                printf("Within the range.\n");
+                printf("Which bamboo type (2) does Mochi want to eat? (0-9): ");
+                scanf("%d", &bambooType2);
+
+                if (bambooType2 < 0 || bambooType2 > 9) {
+                    printf("Second bamboo type has to be within 0-9!\n");
+                    continue; 
+                }
+
+                if (bambooType1 == bambooType2) {
+                    printf("Bamboo types must be different!\n");
+                    continue; 
+                }
+
+                printf("Within the range: %d and %d.\n", bambooType1, bambooType2);
                 break;
-            } else {
-                printf("Has to be within 0-9!\n");
             }
-            }
-            break;
 
         default:
             break;
