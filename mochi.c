@@ -67,7 +67,8 @@ void searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
 
 // Calculate and print the percentage of the grid that has been eaten
 void calculatePercentageEaten(int N, int totalCellsEaten) {
-    return (totalCellsEaten / (N * N)) * 100.0;
+    double percentageEaten = (totalCellsEaten / (double)(N * N)) * 100.0;
+    printf("Mochi has eaten %.2f%% of the forest.\n", percentageEaten);
 }
 
 // -------------- Main ----------------------
