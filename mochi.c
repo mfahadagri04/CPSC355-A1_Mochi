@@ -36,7 +36,28 @@ void printGrid(int N, int forest[N][N]) {
 
 // Function to search for a single bamboo type in the grid
 void searchBamboo1(int N, int forest[N][N], int bambooType) {
-    // Implementation goes here
+    int bambooCounter = 0;
+    int coordinates[N*N][2]; // To store coordinates of eaten bamboo
+    for (int row = 0; row < N; row++) {
+        for (int col = 0; col < N; col++) {
+            if (forest[row][col] == bambooType) {
+                coordinates[bambooCounter][0] = row;
+                coordinates[bambooCounter][1] = col;
+                bambooCounter++;
+            }
+        }
+    }
+
+    // If no bamboo found :(
+    if (bambooCounter == 0) {
+        printf("Oh no! Mochi couldn’t find any bamboo type %d.\n", bambooType);
+    } else {
+        printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooCounter, bambooType);
+        printf("Coordinates of eaten bamboo:\n");
+        for (int i = 0; i < bambooCounter; i++) {
+            printf("(%d, %d)\n", coordinates[i][0], coordinates[i][1]);
+        }
+    }
 }
 
 // Function to search for two bamboo types in the grid
@@ -92,7 +113,7 @@ int main(int argc, char *argv[]) {
             scanf("%d",&bambooType1);
 
             if (bambooType1 >= 0 && bambooType1 <= 9) {
-                printf("Within the range.\n");
+                searchBamboo1(N, forest, bambooType1);
                 break;
             } else {
                 printf("Has to be within 0-9!\n");
