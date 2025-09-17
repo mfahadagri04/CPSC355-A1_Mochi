@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
 
             if (bambooType1 >= 0 && bambooType1 <= 9) {
                 searchBamboo1(N, forest, bambooType1);
+                calculatePercentageEaten(N, bambooType1);
                 break;
             } else {
                 printf("Has to be within 0-9!\n");
