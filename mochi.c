@@ -35,7 +35,7 @@ void printGrid(int N, int forest[N][N]) {
 }
 
 // Function to search for a single bamboo type in the grid
-void searchBamboo1(int N, int forest[N][N], int bambooType) {
+int searchBamboo1(int N, int forest[N][N], int bambooType) {
     int bambooCounter = 0;
     int coordinates[N*N][2]; // To store coordinates of eaten bamboo
     for (int row = 0; row < N; row++) {
@@ -50,7 +50,7 @@ void searchBamboo1(int N, int forest[N][N], int bambooType) {
 
     // If no bamboo found :(
     if (bambooCounter == 0) {
-        printf("Oh no! Mochi couldn’t find any bamboo type %d.\n", bambooType);
+        printf("Oh no! Mochi could not find any bamboo type %d.\n", bambooType);
     } else {
         printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooCounter, bambooType);
         printf("Coordinates of eaten bamboo:\n");
@@ -58,6 +58,8 @@ void searchBamboo1(int N, int forest[N][N], int bambooType) {
             printf("(%d, %d)\n", coordinates[i][0], coordinates[i][1]);
         }
     }
+
+    return bambooCounter;
 }
 
 // Function to search for two bamboo types in the grid
@@ -114,8 +116,9 @@ int main(int argc, char *argv[]) {
             scanf("%d",&bambooType1);
 
             if (bambooType1 >= 0 && bambooType1 <= 9) {
-                searchBamboo1(N, forest, bambooType1);
-                calculatePercentageEaten(N, bambooType1);
+                int eaten = searchBamboo1(N, forest, bambooType1);
+                printf("%d\n",eaten);
+                calculatePercentageEaten(N, eaten);
                 break;
             } else {
                 printf("Has to be within 0-9!\n");
