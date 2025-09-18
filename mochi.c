@@ -186,6 +186,10 @@ int main(int argc, char *argv[]) {
                 }
 
                 printf("Within the range: %d and %d.\n", bambooType1, bambooType2);
+
+                int eaten = searchBamboo2(N, forest, bambooType1,bambooType2);
+                printf("%d\n",eaten);
+                calculatePercentageEaten(N, eaten);
                 break;
             }
 
