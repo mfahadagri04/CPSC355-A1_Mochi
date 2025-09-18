@@ -63,7 +63,7 @@ int searchBamboo1(int N, int forest[N][N], int bambooType) {
 }
 
 // Function to search for two bamboo types in the grid
-void searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
+int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
     int bambooType1Counter = 0;
     int bambooType2Counter = 0;
     int totalBambooCounter = 0;
