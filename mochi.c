@@ -63,10 +63,11 @@ int searchBamboo1(int N, int forest[N][N], int bambooType) {
 }
 
 // Search for two bamboo types
-int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2, int coordinates[][2]) {
+int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
     int bambooType1Counter = 0;
     int bambooType2Counter = 0;
     int totalBambooCounter = 0;
+    int coordinates[N * N][2];
 
     for (int row = 0; row < N; row++) {
         for (int col = 0; col < N; col++) {
