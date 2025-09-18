@@ -74,12 +74,14 @@ int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
                 coordinates[totalBambooCounter][0] = row;
                 coordinates[totalBambooCounter][1] = col;
                 bambooType1Counter++;
+                totalBambooCounter++;
             }
 
             if (forest[row][col] == bambooType2) {
                 coordinates[totalBambooCounter][0] = row;
                 coordinates[totalBambooCounter][1] = col;
                 bambooType2Counter++;
+                totalBambooCounter++;
             }
         }
     }
@@ -92,7 +94,7 @@ int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
     } else {
         printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooType1Counter, bambooType1);
         printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooType2Counter, bambooType2);
-        totalBambooCounter = bambooType1Counter + bambooType2Counter;
+        
         printf("Mochi has eaten a total of %d pieces of bamboo.\n", totalBambooCounter);
         printf("Coordinates of eaten bamboo:\n");
         for (int i = 0; i < totalBambooCounter; i++) {
@@ -105,7 +107,7 @@ int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
 
 // Calculate and print the percentage of the grid that has been eaten
 void calculatePercentageEaten(int N, int totalCellsEaten) {
-    double percentageEaten = (totalCellsEaten / (double)(N * N)) * 100.0;
+    double percentageEaten = (totalCellsEaten / (double) (N * N)) * 100.0;
     printf("Mochi has eaten %.2f%% of the forest.\n", percentageEaten);
 }
 
