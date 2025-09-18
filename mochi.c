@@ -62,12 +62,12 @@ int searchBamboo1(int N, int forest[N][N], int bambooType) {
     return bambooCounter;
 }
 
-// Function to search for two bamboo types in the grid
-int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
+// Search for two bamboo types
+int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2, int coordinates[][2]) {
     int bambooType1Counter = 0;
     int bambooType2Counter = 0;
     int totalBambooCounter = 0;
-    int coordinates[N*N][2]; // To store coordinates of eaten bamboo
+
     for (int row = 0; row < N; row++) {
         for (int col = 0; col < N; col++) {
             if (forest[row][col] == bambooType1) {
@@ -75,9 +75,8 @@ int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
                 coordinates[totalBambooCounter][1] = col;
                 bambooType1Counter++;
                 totalBambooCounter++;
-            }
-
-            if (forest[row][col] == bambooType2) {
+            } 
+            else if (forest[row][col] == bambooType2) { // 👈 avoid double count
                 coordinates[totalBambooCounter][0] = row;
                 coordinates[totalBambooCounter][1] = col;
                 bambooType2Counter++;
@@ -86,24 +85,30 @@ int searchBamboo2(int N, int forest[N][N], int bambooType1, int bambooType2) {
         }
     }
 
-    // If no bamboo found :(
     if (bambooType1Counter == 0) {
-        printf("Oh no! Mochi could not find any bamboo type %d.\n", bambooType1Counter);
-    } else if (bambooType2Counter == 0) {
-        printf("Oh no! Mochi could not find any bamboo type %d.\n", bambooType2Counter); 
+        printf("Oh no! Mochi could not find bamboo type %d.\n", bambooType1);
     } else {
         printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooType1Counter, bambooType1);
+    }
+
+    if (bambooType2Counter == 0) {
+        printf("Oh no! Mochi could not find bamboo type %d.\n", bambooType2);
+    } else {
         printf("Mochi has eaten %d pieces of bamboo type %d.\n", bambooType2Counter, bambooType2);
-        
-        printf("Mochi has eaten a total of %d pieces of bamboo.\n", totalBambooCounter);
+    }
+
+    printf("Mochi has eaten a total of %d pieces of bamboo.\n", totalBambooCounter);
+
+    if (totalBambooCounter > 0) {
         printf("Coordinates of eaten bamboo:\n");
         for (int i = 0; i < totalBambooCounter; i++) {
             printf("(%d, %d)\n", coordinates[i][0], coordinates[i][1]);
         }
     }
 
-    return totalBambooCounter;
+    return totalBambooCounter;  
 }
+
 
 // Calculate and print the percentage of the grid that has been eaten
 void calculatePercentageEaten(int N, int totalCellsEaten) {
