@@ -163,7 +163,7 @@ int main(int argc, char *argv[]) {
             char input[10];
             scanf("%s", input);
 
-            if (tolower(input[0]) == 'q') {
+            if (input[0] == 'q' || input[0] == 'Q') {
                 printf("Exiting program...\n");
                 return 0;
             }
@@ -183,7 +183,7 @@ int main(int argc, char *argv[]) {
                     char input[10];
                     scanf("%s", input);
 
-                    if (tolower(input[0]) == 'q') {
+                    if (input[0] == 'q' || input[0] == 'Q') {
                         printf("Exiting program...\n");
                         return 0;
                     }
@@ -211,39 +211,75 @@ int main(int argc, char *argv[]) {
 
             case 2:
                 while (1) {
-                    printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
-                    scanf("%d", &bambooType1);
+                    printf("Which bamboo type (1) does Mochi want to eat? (0-9, q to quit): ");
+                    char input[10];
+                    scanf("%s", input);
+
+                    if (tolower(input[0]) == 'q') {
+                        printf("Exiting program...\n");
+                        return 0;
+                    }
+                    bambooType1 = atoi(input);
 
                     if (bambooType1 < 0 || bambooType1 > 9) {
                         printf("First bamboo type has to be within 0-9!\n");
-                        continue; 
+                        continue;
+                    }
+                    if (isChosen(chosenTypes, chosenCounter, bambooType1)) {
+                        printf("This bamboo type was already chosen!\n");
+                        continue;
                     }
 
-                    printf("Which bamboo type (2) does Mochi want to eat? (0-9): ");
-                    scanf("%d", &bambooType2);
+                    printf("Which bamboo type (2) does Mochi want to eat? (0-9, q to quit): ");
+                    scanf("%s", input);
+
+                    if (input[0] == 'q' || input[0] == 'Q') {
+                        printf("Exiting program...\n");
+                        return 0;
+                    }
+                    bambooType2 = atoi(input);
 
                     if (bambooType2 < 0 || bambooType2 > 9) {
                         printf("Second bamboo type has to be within 0-9!\n");
-                        continue; 
+                        continue;
                     }
-
                     if (bambooType1 == bambooType2) {
                         printf("Bamboo types must be different!\n");
-                        continue; 
+                        continue;
+                    }
+                    if (isChosen(chosenTypes, chosenCounter, bambooType2)) {
+                        printf("This bamboo type was already chosen!\n");
+                        continue;
                     }
 
-                    printf("Within the range: %d and %d.\n", bambooType1, bambooType2);
-
-                    int eaten = searchBamboo2(N, forest, bambooType1,bambooType2);
-                    printf("%d\n",eaten);
+                    int eaten = searchBamboo2(N, forest, bambooType1, bambooType2);
+                    totalBambooEaten += eaten;
                     calculatePercentageEaten(N, eaten);
+
+                    chosenTypes[chosenCounter++] = bambooType1;
+                    chosenTypes[chosenCounter++] = bambooType2;
                     eatingCounter++;
                     break;
                 }
-
-            default:
                 break;
             }
+
+            // Ask if Mochi is still hungry
+            if (eatingCounter < 2) {
+                char ans[10];
+                printf("\nMochi is still hungry...would you like to continue? (y/n, q to quit): ");
+                scanf("%s", ans);
+
+                if (ans[0] == 'q' || ans[0] == 'Q' || ans[0] == 'n' || ans[0] == 'N') {
+                    printf("Mochi is ANGRY! You must choose again!\n");
+                    continue;
+                } else if (ans[0] == 'y' || ans[0] == 'Y') {
+                    continue;
+                } else {
+                    printf("Invalid input, exiting program...\n");
+                    return 0;
+            }   
+        }
         }
     
     return 0;
