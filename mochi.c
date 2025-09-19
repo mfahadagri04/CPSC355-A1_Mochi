@@ -117,6 +117,14 @@ void calculatePercentageEaten(int N, int totalCellsEaten) {
     printf("Mochi has eaten %.2f%% of the forest.\n", percentageEaten);
 }
 
+// Chosen bamboo type(s) tracker
+int isChosen(int chosen[], int chosenCount, int type) {
+    for (int i = 0; i < chosenCount; i++) {
+        if (chosen[i] == type) return 1;
+    }
+    return 0;
+}
+
 // -------------- Main ----------------------
 
 int main(int argc, char *argv[]) {
@@ -137,73 +145,81 @@ int main(int argc, char *argv[]) {
     printf("\nForest Grid:\n");
     printGrid(N,forest);
 
-    // Ask user how many bamboo types does mochi want
-    int choice;
-    while (1) {
-        printf("\nHow many bamboo types does Mochi want to eat, 1 or 2? ");
-        scanf("%d",&choice);
 
-        if (choice == 1 || choice == 2) {
-            break;
-        } else {
-            printf("\nPlease enter either 1 or 2\n");
-        }
-    }
+    int eatingCounter = 0;
+    int chosenTypes[10]; // To track chosen bamboo types
     
-    // Switch case for 1 or 2 bamboo types
-    int bambooType1;
-    int bambooType2;
-    switch (choice) {
-        case 1:
-            while (1) {
-            printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
-            scanf("%d",&bambooType1);
+    while (eatingCounter < 2) {
+        // Ask user how many bamboo types does mochi want
+        int choice;
+        while (1) {
+            printf("\nHow many bamboo types does Mochi want to eat, 1 or 2? ");
+            scanf("%d",&choice);
 
-            if (bambooType1 >= 0 && bambooType1 <= 9) {
-                int eaten = searchBamboo1(N, forest, bambooType1);
-                printf("%d\n",eaten);
-                calculatePercentageEaten(N, eaten);
+            if (choice == 1 || choice == 2) {
                 break;
             } else {
-                printf("Has to be within 0-9!\n");
+                printf("\nPlease enter either 1 or 2\n");
             }
-            }
-            break;
+        }
+        
+        // Switch case for 1 or 2 bamboo types
+        int bambooType1;
+        int bambooType2;
+        switch (choice) {
+            case 1:
+                while (1) {
+                printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
+                scanf("%d",&bambooType1);
 
-        case 2:
-            while (1) {
-                printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
-                scanf("%d", &bambooType1);
+                if (bambooType1 >= 0 && bambooType1 <= 9) {
+                    int eaten = searchBamboo1(N, forest, bambooType1);
+                    printf("%d\n",eaten);
+                    calculatePercentageEaten(N, eaten);
+                    eatingCounter++;
+                    break;
+                } else {
+                    printf("Has to be within 0-9!\n");
+                }
+                }
+                break;
 
-                if (bambooType1 < 0 || bambooType1 > 9) {
-                    printf("First bamboo type has to be within 0-9!\n");
-                    continue; 
+            case 2:
+                while (1) {
+                    printf("\nWhich bamboo type (1) does Mochi want to eat? (0-9): ");
+                    scanf("%d", &bambooType1);
+
+                    if (bambooType1 < 0 || bambooType1 > 9) {
+                        printf("First bamboo type has to be within 0-9!\n");
+                        continue; 
+                    }
+
+                    printf("Which bamboo type (2) does Mochi want to eat? (0-9): ");
+                    scanf("%d", &bambooType2);
+
+                    if (bambooType2 < 0 || bambooType2 > 9) {
+                        printf("Second bamboo type has to be within 0-9!\n");
+                        continue; 
+                    }
+
+                    if (bambooType1 == bambooType2) {
+                        printf("Bamboo types must be different!\n");
+                        continue; 
+                    }
+
+                    printf("Within the range: %d and %d.\n", bambooType1, bambooType2);
+
+                    int eaten = searchBamboo2(N, forest, bambooType1,bambooType2);
+                    printf("%d\n",eaten);
+                    calculatePercentageEaten(N, eaten);
+                    eatingCounter++;
+                    break;
                 }
 
-                printf("Which bamboo type (2) does Mochi want to eat? (0-9): ");
-                scanf("%d", &bambooType2);
-
-                if (bambooType2 < 0 || bambooType2 > 9) {
-                    printf("Second bamboo type has to be within 0-9!\n");
-                    continue; 
-                }
-
-                if (bambooType1 == bambooType2) {
-                    printf("Bamboo types must be different!\n");
-                    continue; 
-                }
-
-                printf("Within the range: %d and %d.\n", bambooType1, bambooType2);
-
-                int eaten = searchBamboo2(N, forest, bambooType1,bambooType2);
-                printf("%d\n",eaten);
-                calculatePercentageEaten(N, eaten);
+            default:
                 break;
             }
-
-        default:
-            break;
         }
-
+    
     return 0;
 }
