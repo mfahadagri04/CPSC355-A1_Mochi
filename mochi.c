@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 // -------------- Functions ----------------------
 
@@ -118,11 +119,11 @@ void calculatePercentageEaten(int N, int totalCellsEaten) {
 }
 
 // Chosen bamboo type(s) tracker
-int isChosen(int chosen[], int chosenCount, int type) {
+bool isChosen(int chosen[], int chosenCount, int type) {
     for (int i = 0; i < chosenCount; i++) {
-        if (chosen[i] == type) return 1;
+        if (chosen[i] == type) return true;
     }
-    return 0;
+    return false;
 }
 
 // -------------- Main ----------------------
@@ -130,14 +131,17 @@ int isChosen(int chosen[], int chosenCount, int type) {
 int main(int argc, char *argv[]) {
     // check CLA
     if (argc != 2) {
-        fprintf(stderr, "Error: Please provide the size of the forest grid (N).\n");
-        fprintf(stderr, "Usage: %s <N>\n", argv[0]);
+        printf("Usage: %s <grid_size>\n", argv[0]);
         return 1;
     }
 
     int N = atoi(argv[1]);
-    int forest[N][N];
+    if (N <= 0) {
+        printf("Grid size must be positive!\n");
+        return 1;
+    }
 
+    int forest[N][N];
     initGrid(N,forest);
 
     printf("<==================== Mochi the Panda ====================>\n");
@@ -148,39 +152,60 @@ int main(int argc, char *argv[]) {
 
     int eatingCounter = 0;
     int chosenTypes[10]; // To track chosen bamboo types
-    
+    int chosenCounter = 0;
+    int totalBambooEaten = 0;
+
     while (eatingCounter < 2) {
         // Ask user how many bamboo types does mochi want
         int choice;
         while (1) {
-            printf("\nHow many bamboo types does Mochi want to eat, 1 or 2? ");
-            scanf("%d",&choice);
+            printf("\nHow many bamboo types does Mochi want to eat, 1 or 2? (q to quit): ");
+            char input[10];
+            scanf("%s", input);
 
-            if (choice == 1 || choice == 2) {
-                break;
-            } else {
-                printf("\nPlease enter either 1 or 2\n");
+            if (tolower(input[0]) == 'q') {
+                printf("Exiting program...\n");
+                return 0;
             }
+
+            choice = atoi(input);
+            if (choice == 1 || choice == 2) break;
+
+            printf("Please enter either 1 or 2\n");
         }
         
         // Switch case for 1 or 2 bamboo types
-        int bambooType1;
-        int bambooType2;
+        int bambooType1, bambooType2;
         switch (choice) {
             case 1:
                 while (1) {
-                printf("\nWhich bamboo type does Mochi want to eat? (0-9): ");
-                scanf("%d",&bambooType1);
+                    printf("Which bamboo type does Mochi want to eat? (0-9, q to quit): ");
+                    char input[10];
+                    scanf("%s", input);
 
-                if (bambooType1 >= 0 && bambooType1 <= 9) {
+                    if (tolower(input[0]) == 'q') {
+                        printf("Exiting program...\n");
+                        return 0;
+                    }
+
+                    bambooType1 = atoi(input);
+
+                    if (bambooType1 < 0 || bambooType1 > 9) {
+                        printf("Has to be within 0-9!\n");
+                        continue;
+                    }
+                    if (isChosen(chosenTypes, chosenCounter, bambooType1)) {
+                        printf("This bamboo type was already chosen!\n");
+                        continue;
+                    }
+
                     int eaten = searchBamboo1(N, forest, bambooType1);
-                    printf("%d\n",eaten);
+                    totalBambooEaten += eaten;
                     calculatePercentageEaten(N, eaten);
+
+                    chosenTypes[chosenCounter++] = bambooType1;
                     eatingCounter++;
                     break;
-                } else {
-                    printf("Has to be within 0-9!\n");
-                }
                 }
                 break;
 
